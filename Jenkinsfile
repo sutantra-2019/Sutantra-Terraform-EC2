@@ -1,13 +1,6 @@
 // Jenkinsfile
 String credentialsId = 'awsCredentials'
 
-agent {
-    docker {
-      image 'hashicorp/terraform:light'
-      args '--entrypoint='
-    }
-}
-
 try {
   stage('checkout') {
     node {
