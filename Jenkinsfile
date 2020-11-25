@@ -1,6 +1,13 @@
 // Jenkinsfile
 String credentialsId = 'awsCredentials'
 
+agent {
+    docker {
+      image 'hashicorp/terraform:light'
+      args '--entrypoint='
+    }
+}
+
 try {
   stage('checkout') {
     node {
@@ -19,7 +26,7 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-          sh 'ls -alrt'
+          sh 'terraform init'
         }
       }
     }
@@ -35,7 +42,7 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-          sh 'ls -alrt'
+          sh 'terraform plan'
         }
       }
     }
@@ -53,7 +60,7 @@ try {
           secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
         ]]) {
           ansiColor('xterm') {
-            sh 'ls -alrt'
+            sh 'terraform apply'
           }
         }
       }
@@ -69,7 +76,7 @@ try {
           secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
         ]]) {
           ansiColor('xterm') {
-            sh 'ls -lart'
+            sh 'terraform show'
           }
         }
       }
