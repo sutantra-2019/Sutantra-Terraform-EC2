@@ -6,6 +6,7 @@ try {
     node {
       cleanWs()
       checkout scm
+      sh 'ls -alrt'
     }
   }
 
